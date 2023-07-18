@@ -157,6 +157,8 @@ GPIO_RegDef_t *pGPIOI = GPIOI;
 
 RCC_RegDef_t *pRCC = RCC;
 
+/************************************PERIPHERAL CLOCK MACROS************************************/
+
 
 /* clock enable macros for GPIOx peripherals */
 #define GPIOA_PCLK_EN()		(RCC->AHB1ENR |= (1 << 0))
@@ -221,6 +223,12 @@ RCC_RegDef_t *pRCC = RCC;
 
 /* clock disable macro for SYSCFG peripheral */
 #define SYSCFG_PCLK_DI()	(RCC->APB2ENR &= ~(1 << 14))
+
+/* some generic macros */
+#define ENABLE	1
+#define DISABLE 0
+#define SET		ENABLE
+#define RESET	DISABLE
 
 
 #endif /* INC_STM32F407XX_H_ */
