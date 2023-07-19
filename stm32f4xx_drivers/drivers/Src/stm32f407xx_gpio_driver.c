@@ -26,7 +26,84 @@
  **********************************************************************/
 void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 {
-
+	if(EnorDi)
+	{
+		if(pGPIOx == pGPIOA)
+		{
+			GPIOA_PCLK_EN();
+		}
+		else if(pGPIOx == pGPIOB)
+		{
+			GPIOB_PCLK_EN();
+		}
+		else if(pGPIOx == pGPIOC)
+		{
+			GPIOC_PCLK_EN();
+		}
+		else if(pGPIOx == pGPIOD)
+		{
+			GPIOD_PCLK_EN();
+		}
+		else if(pGPIOx == pGPIOE)
+		{
+			GPIOE_PCLK_EN();
+		}
+		else if(pGPIOx == pGPIOF)
+		{
+			GPIOF_PCLK_EN();
+		}
+		else if(pGPIOx == pGPIOG)
+		{
+			GPIOG_PCLK_EN();
+		}
+		else if(pGPIOx == pGPIOH)
+		{
+			GPIOH_PCLK_EN();
+		}
+		else if(pGPIOx == pGPIOI)
+		{
+			GPIOI_PCLK_EN();
+		}
+	}
+	else
+	{
+		if(pGPIOx == pGPIOA)
+		{
+			GPIOA_PCLK_DI();
+		}
+		else if(pGPIOx == pGPIOB)
+		{
+			GPIOB_PCLK_DI();
+		}
+		else if(pGPIOx == pGPIOC)
+		{
+			GPIOC_PCLK_DI();
+		}
+		else if(pGPIOx == pGPIOD)
+		{
+			GPIOD_PCLK_DI();
+		}
+		else if(pGPIOx == pGPIOE)
+		{
+			GPIOE_PCLK_DI();
+		}
+		else if(pGPIOx == pGPIOF)
+		{
+			GPIOF_PCLK_DI();
+		}
+		else if(pGPIOx == pGPIOG)
+		{
+			GPIOG_PCLK_DI();
+		}
+		else if(pGPIOx == pGPIOH)
+		{
+			GPIOH_PCLK_DI();
+		}
+		else if(pGPIOx == pGPIOI)
+		{
+			GPIOI_PCLK_DI();
+		}
+	}
 }
 
 /* init and de-init */
@@ -46,7 +123,57 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
  **********************************************************************/
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 {
+	uint32_t temp = 0;
+	/* 1. configure the mode of GPIO pin */
+	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG)
+	{
+		/* non interrupt mode */
+		temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+		pGPIOHandle->pGPIOx->MODER &= ~(0x3 << 2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		pGPIOHandle->pGPIOx->MODER |= temp;
+	}
+	else
+	{
+		/* interrupt mode */
+		//TODO
+	}
+	temp = 0;
 
+	/* 2. configure the speed of GPIO pin */
+	temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinSpeed << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+	pGPIOHandle->pGPIOx->OSPEEDR &= ~(0x3 << 2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+	pGPIOHandle->pGPIOx->OSPEEDR |= temp;
+	temp = 0;
+
+	/* 3. configure the pull up/down state */
+	temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPdControl << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+	pGPIOHandle->pGPIOx->PUPDR &= ~(0x3 << 2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+	pGPIOHandle->pGPIOx->PUPDR |= temp;
+	temp = 0;
+
+	/* 4. configure the output type */
+	temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinOPType << (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+	pGPIOHandle->pGPIOx->OTYPER &= ~(0x1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+	pGPIOHandle->pGPIOx->OTYPER |= temp;
+	temp = 0;
+
+	/* 5. configure the alternate functionality */
+	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFN)
+	{
+		if((pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber) < GPIO_PIN_NO_8)
+		{
+			temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinAltFunMode << (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+			pGPIOHandle->pGPIOx->AFRL &= ~(0xF<< pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			pGPIOHandle->pGPIOx->AFRL |= temp;
+		}
+		else
+		{
+			temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinAltFunMode << (4 * (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber % GPIO_PIN_NO_8)));
+			pGPIOHandle->pGPIOx->AFRH &= ~(0xF << (4 * (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber % GPIO_PIN_NO_8)));
+			pGPIOHandle->pGPIOx->AFRH |= temp;
+		}
+		temp = 0;
+	}
 }
 
 /**********************************************************************
@@ -65,7 +192,42 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
  **********************************************************************/
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 {
-
+	if(pGPIOx == pGPIOA)
+	{
+		GPIOA_REG_RESET();
+	}
+	else if(pGPIOx == pGPIOB)
+	{
+		GPIOB_REG_RESET();
+	}
+	else if(pGPIOx == pGPIOC)
+	{
+		GPIOC_REG_RESET();
+	}
+	else if(pGPIOx == pGPIOD)
+	{
+		GPIOD_REG_RESET();
+	}
+	else if(pGPIOx == pGPIOE)
+	{
+		GPIOE_REG_RESET();
+	}
+	else if(pGPIOx == pGPIOF)
+	{
+		GPIOF_REG_RESET();
+	}
+	else if(pGPIOx == pGPIOG)
+	{
+		GPIOG_REG_RESET();
+	}
+	else if(pGPIOx == pGPIOH)
+	{
+		GPIOH_REG_RESET();
+	}
+	else if(pGPIOx == pGPIOI)
+	{
+		GPIOI_REG_RESET();
+	}
 }
 
 /* data read and write */
@@ -77,7 +239,7 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
  * 		@param	:	Base address of the GPIO peripheral
  * 		@param 	:	Pin number of given GPIO port
  * 		@param 	:	none
- *		@return :	Read value of given GPIO pin
+ *		@return :	Read value of given GPIO pin (0 or 1)
  *
  * 		@note	:	none
  * 		@date	:	07.19.23
@@ -85,7 +247,10 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
  **********************************************************************/
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
-
+	uint8_t value;
+	/* correction may be required */
+	value = (uint8_t)(pGPIOx->IDR & (1 << PinNumber));
+	return value;
 }
 
 /**********************************************************************
@@ -104,7 +269,10 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
  **********************************************************************/
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
 {
-
+	uint16_t value;
+	/* correction may be required */
+	value = (uint16_t)(pGPIOx->IDR);
+	return value;
 }
 
 /**********************************************************************
@@ -123,7 +291,16 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
  **********************************************************************/
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t EnorDi)
 {
-
+	if(EnorDi)
+	{
+		/* write 1 to the output data register */
+		pGPIOx->ODR |= (1 << PinNumber);
+	}
+	else
+	{
+		/* clear the output data register */
+		pGPIOx->ODR &= ~(1 << PinNumber);
+	}
 }
 
 /**********************************************************************
@@ -142,7 +319,8 @@ void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Eno
  **********************************************************************/
 void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value)
 {
-
+	/* move value to the output register */
+	pGPIOx->ODR = Value;
 }
 
 /**********************************************************************
@@ -161,7 +339,8 @@ void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value)
  **********************************************************************/
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
-
+	/* exclusive or */
+	pGPIOx->ODR ^= (1 << PinNumber);
 }
 
 /* IRQ configuration and ISR handling */
