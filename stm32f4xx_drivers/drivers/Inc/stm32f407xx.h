@@ -20,10 +20,10 @@
 /******************************PERIPHERAL BASE ADDRESS DEFINITIONS******************************/
 
 /* base adresses of Flash and SRAM memories */
-#define FLASHB_BASEADDR			0x08000000U		/* U stands for unsigned */
-#define SRAM1_BASEADDR			0x20000000U		/* SIZE-> 112KB */
-#define SRAM2_BASEADDR			0x20001C00U		/* SRAM1 BADDR + 112KB */
-#define ROM_BASEADDR			0x1FFF0000U		/* SYSTEM MEMORY ADDR */
+#define FLASHB_BASEADDR			0x08000000U		/* U stands for unsigned 	 */
+#define SRAM1_BASEADDR			0x20000000U		/* SIZE-> 112KB 		 	 */
+#define SRAM2_BASEADDR			0x20001C00U		/* SRAM1 BADDR + 112KB   	 */
+#define ROM_BASEADDR			0x1FFF0000U		/* SYSTEM MEMORY ADDR    	 */
 #define SRAM 					SRAM1_BASEADDR	/* ASSUME SRAM1 AS MAIN SRAM */
 
 /* base adresses of Peripheral Buses */
