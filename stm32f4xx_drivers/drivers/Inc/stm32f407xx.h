@@ -144,19 +144,6 @@ typedef struct
 
 #define RCC 	((RCC_RegDef_t*)RCC_BASEADDR)
 
-/* initializing pointer values to gpio base addresses */
-GPIO_RegDef_t *pGPIOA = GPIOA;
-GPIO_RegDef_t *pGPIOB = GPIOB;
-GPIO_RegDef_t *pGPIOC = GPIOC;
-GPIO_RegDef_t *pGPIOD = GPIOD;
-GPIO_RegDef_t *pGPIOE = GPIOE;
-GPIO_RegDef_t *pGPIOF = GPIOF;
-GPIO_RegDef_t *pGPIOG = GPIOG;
-GPIO_RegDef_t *pGPIOH = GPIOH;
-GPIO_RegDef_t *pGPIOI = GPIOI;
-
-RCC_RegDef_t *pRCC = RCC;
-
 /************************************PERIPHERAL CLOCK MACROS************************************/
 
 
@@ -243,5 +230,6 @@ RCC_RegDef_t *pRCC = RCC;
 #define TRUE 	ENABLE
 #define FALSE 	!= TRUE
 
+#include "stm32f407xx_gpio_driver.h"
 
 #endif /* INC_STM32F407XX_H_ */
