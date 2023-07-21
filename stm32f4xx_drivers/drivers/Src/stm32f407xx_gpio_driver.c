@@ -135,7 +135,35 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 	else
 	{
 		/* interrupt mode */
-		//TODO
+		if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FT)
+		{
+			/* 1. enable falling edge detection */
+			EXTI->FTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			/* clear RTSR */
+			EXTI->RTSR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		}
+		else if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RT)
+		{
+			/* 1. enable rising edge detection */
+			EXTI->RTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			/* clear FTSR */
+			EXTI->FTSR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		}
+		else if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RFT)
+		{
+			/* 1. enable both falling edge and rising edge detection */
+			EXTI->FTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			EXTI->RTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		}
+
+		/* 2. configure the GPIO port selection in SYSCFG_EXTICR */
+		uint8_t temp1 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber / 4;
+		uint8_t temp2 = (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber % 4) * 4;
+		SYSCFG_PCLK_EN();
+		SYSCFG->EXTICR[temp1] |= (GPIO_BASEADDR_TO_CODE(pGPIOHandle->pGPIOx) << temp2);
+
+		/* 3. enable the EXTI interrupt delivery using IMR */
+		EXTI->IMR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 	}
 	temp = 0;
 
@@ -350,17 +378,75 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
  *		@brief	:	Writes the desired value to the GPIO pin
  *
  * 		@param	:	IRQ number for desired interrupt
- * 		@param 	:	Priority value for given interrupt
  * 		@param 	:	Enable or disable macros
+ * 		@param 	:	none
  *		@return :	none
  *
  * 		@note	:	none
  * 		@date	:	07.19.23
  *
  **********************************************************************/
-void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi)
+void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t EnorDi)
 {
+	if(EnorDi)
+	{
+		if(IRQNumber <= 31)
+		{
+			*NVIC_ISER0 |= (1 << IRQNumber);
+		}
+		else if((IRQNumber >= 32) && (IRQNumber < 64))
+		{
+			*NVIC_ISER1 |= (1 << (IRQNumber % 32));
+		}
+		else if((IRQNumber >= 64) && (IRQNumber < 96))
+		{
+			*NVIC_ISER2 |= (1 << (IRQNumber % 64));
+		}
+	}
+	else
+	{
+		if(IRQNumber <= 31)
+		{
+			*NVIC_ICER0 |= (1 << IRQNumber);
+		}
+		else if((IRQNumber >= 32) && (IRQNumber < 64))
+		{
+			*NVIC_ICER1 |= (1 << (IRQNumber % 32));
+		}
+		else if((IRQNumber >= 64) && (IRQNumber < 96))
+		{
+			*NVIC_ICER2 |= (1 << (IRQNumber % 64));
+		}
+	}
+}
 
+/**********************************************************************
+ *
+ *		@func	:	GPIO_IRQPriorityConfig
+ *		@brief	:	Configurates the priority desired IRQ
+ *
+ * 		@param	:	IRQ number for desired interrupt
+ * 		@param 	:	Priority value for given interrupt
+ * 		@param 	:	Enable or disable macros
+ *		@return :	none
+ *
+ * 		@note	:	none
+ * 		@date	:	07.21.23
+ *
+ **********************************************************************/
+void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint8_t IRQPriority)
+{
+	/* find the register */
+	uint8_t temp1 = (IRQNumber / 4) * 4;
+	/* find the required byte in register */
+	uint8_t temp2 = (IRQNumber % 4) * 8;
+
+	/* each 32 bit includes 4 irq priority settings divided by bytes */
+	/* first 4 bits of those bytes are n/a, so we shift 4 more bits  */
+	*(NVIC_PR_BASE_ADDR + temp1) |= (IRQPriority << (temp2 + 4));
+
+	/* REG1 ||IRQ7||IRQ6||IRQ5||IRQ4|| */
+	/* REG0 ||IRQ3||IRQ2||IRQ1||IRQ0|| */
 }
 
 /**********************************************************************
@@ -379,5 +465,9 @@ void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi)
  **********************************************************************/
 void GPIO_IRQHandling(uint8_t PinNumber)
 {
-
+	/* clear the exti pr register for the given pin number */
+	if(EXTI->PR & (1 << PinNumber))
+	{
+		EXTI->PR |= (1 << PinNumber);
+	}
 }
