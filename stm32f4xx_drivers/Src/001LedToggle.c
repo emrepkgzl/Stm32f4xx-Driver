@@ -7,6 +7,10 @@
 
 #include "stm32f407xx.h"
 
+void delay()
+{
+	for(int i = 0; i < 50000; i++);
+}
 
 int main(void)
 {
@@ -24,7 +28,7 @@ int main(void)
 
 	while(ENABLE)
 	{
-		for(int i = 0; i < 50000; i++);
+		delay();
 
 		GPIO_ToggleOutputPin(GPIOD, GPIO_PIN_NO_12);
 	}
