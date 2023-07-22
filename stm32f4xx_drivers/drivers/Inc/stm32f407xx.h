@@ -277,6 +277,23 @@ typedef struct
 #define IRQ_NO_EXTI9_5	 23
 #define IRQ_NO_EXTI15_10 40
 
+#define IRQ_NVIC_PRIO0   0
+#define IRQ_NVIC_PRIO1   1
+#define IRQ_NVIC_PRIO2   2
+#define IRQ_NVIC_PRIO3   3
+#define IRQ_NVIC_PRIO4   4
+#define IRQ_NVIC_PRIO5   5
+#define IRQ_NVIC_PRIO6   6
+#define IRQ_NVIC_PRIO7   7
+#define IRQ_NVIC_PRIO8   8
+#define IRQ_NVIC_PRIO9   9
+#define IRQ_NVIC_PRIO10  10
+#define IRQ_NVIC_PRIO11  11
+#define IRQ_NVIC_PRIO12  12
+#define IRQ_NVIC_PRIO13  13
+#define IRQ_NVIC_PRIO14  14
+#define IRQ_NVIC_PRIO15  15
+
 #define GPIO_BASEADDR_TO_CODE(x) (	(x == GPIOA) ? 0 :\
 									(x == GPIOB) ? 1 :\
 									(x == GPIOC) ? 2 :\

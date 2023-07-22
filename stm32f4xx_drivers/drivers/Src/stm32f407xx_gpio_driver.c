@@ -434,10 +434,10 @@ void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t EnorDi)
  * 		@date	:	07.21.23
  *
  **********************************************************************/
-void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint8_t IRQPriority)
+void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority)
 {
 	/* find the register */
-	uint8_t temp1 = (IRQNumber / 4) * 4;
+	uint8_t temp1 = (IRQNumber / 4);
 	/* find the required byte in register */
 	uint8_t temp2 = (IRQNumber % 4) * 8;
 
