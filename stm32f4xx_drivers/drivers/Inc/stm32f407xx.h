@@ -171,6 +171,20 @@ typedef struct
 }SYSCFG_RegDef_t;
 
 
+typedef struct
+{
+	__vo uint32_t CR1;			/* control register 1							Address offset: 0x00 */
+	__vo uint32_t CR2;			/* control register 2							Address offset: 0x04 */
+	__vo uint32_t SR;			/* status register								Address offset: 0x08 */
+	__vo uint32_t DR;			/* data register								Address offset: 0x0C */
+	__vo uint32_t CRCPR;		/* CRC polynomial register						Address offset: 0x10 */
+	__vo uint32_t RXCRCR;		/* RX CRC register								Address offset: 0x14 */
+	__vo uint32_t TXCRCR;		/* TX CRC register								Address offset: 0x18 */
+	__vo uint32_t I2SCFGR;		/* configuration register						Address offset: 0x1C */
+	__vo uint32_t I2SPR;		/* prescaler register							Address offset: 0x20 */
+}SPI_RegDef_t;
+
+
 /* peripheral definitions (peripheral base adresses typecasted to xxx_RegDef_t) */
 #define GPIOA	((GPIO_RegDef_t*)GPIOA_BASEADDR)
 #define GPIOB	((GPIO_RegDef_t*)GPIOB_BASEADDR)
@@ -189,6 +203,11 @@ typedef struct
 #define EXTI	((EXTI_RegDef_t*)EXTI_BASEADDR)
 
 #define SYSCFG 	((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
+
+#define SPI1	((SPI_RegDef_t*)SPI1_BASEADDR)
+#define SPI2	((SPI_RegDef_t*)SPI2_BASEADDR)
+#define SPI3	((SPI_RegDef_t*)SPI3_BASEADDR)
+#define SPI4	((SPI_RegDef_t*)SPI4_BASEADDR)
 
 /************************************PERIPHERAL CLOCK MACROS************************************/
 
@@ -221,6 +240,7 @@ typedef struct
 #define SPI1_PCLK_EN()		(RCC->APB2ENR |= (1 << 12))
 #define SPI2_PCLK_EN()		(RCC->APB1ENR |= (1 << 14))
 #define SPI3_PCLK_EN()		(RCC->APB1ENR |= (1 << 15))
+#define SPI4_PCLK_EN()		(RCC->APB2ENR |= (1 << 13))
 
 /* clock enable macro for SYSCFG peripheral */
 #define SYSCFG_PCLK_EN()	(RCC->APB2ENR |= (1 << 14))
@@ -253,6 +273,7 @@ typedef struct
 #define SPI1_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 12))
 #define SPI2_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 14))
 #define SPI3_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 15))
+#define SPI4_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 13))
 
 /* clock disable macro for SYSCFG peripheral */
 #define SYSCFG_PCLK_DI()	(RCC->APB2ENR &= ~(1 << 14))
@@ -302,6 +323,7 @@ typedef struct
 									(x == GPIOF) ? 5 :\
 									(x == GPIOG) ? 6 :\
 									(x == GPIOH) ? 7 : 0  )
+
 /* some generic macros */
 #define ENABLE	1
 #define DISABLE 0

@@ -21,7 +21,7 @@
  *		@return :	none
  *
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
@@ -118,7 +118,7 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
  *		@return :	none
  *
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
@@ -215,7 +215,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
  *		@return :	none
  *
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
@@ -270,7 +270,7 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
  *		@return :	Read value of given GPIO pin (0 or 1)
  *
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
@@ -292,7 +292,7 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
  *		@return :	Read value of given GPIO port
  *
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
@@ -314,7 +314,7 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
  *		@return :	none
  *
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t EnorDi)
@@ -342,7 +342,7 @@ void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Eno
  *		@return :	none
  *
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value)
@@ -362,7 +362,7 @@ void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value)
  *		@return :	none
  *
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
@@ -375,7 +375,7 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 /**********************************************************************
  *
  *		@func	:	GPIO_IRQConfig
- *		@brief	:	Writes the desired value to the GPIO pin
+ *		@brief	:	Enables or disables given IRQ
  *
  * 		@param	:	IRQ number for desired interrupt
  * 		@param 	:	Enable or disable macros
@@ -383,7 +383,7 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
  *		@return :	none
  *
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t EnorDi)
@@ -427,11 +427,11 @@ void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t EnorDi)
  *
  * 		@param	:	IRQ number for desired interrupt
  * 		@param 	:	Priority value for given interrupt
- * 		@param 	:	Enable or disable macros
+ * 		@param 	:	none
  *		@return :	none
  *
  * 		@note	:	none
- * 		@date	:	07.21.23
+ * 		@date	:	07/21/23
  *
  **********************************************************************/
 void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority)
@@ -460,7 +460,7 @@ void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority)
  *		@return :	none
  *
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_IRQHandling(uint8_t PinNumber)

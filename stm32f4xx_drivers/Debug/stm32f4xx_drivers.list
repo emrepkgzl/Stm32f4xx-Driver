@@ -37,15 +37,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_ranges 000000a0  00000000  00000000  000118b0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  00001ec4  00000000  00000000  00011950  2**0
+ 17 .debug_macro  00001ee2  00000000  00000000  00011950  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00000f83  00000000  00000000  00013814  2**0
+ 18 .debug_line   00000f83  00000000  00000000  00013832  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    00008812  00000000  00000000  00014797  2**0
+ 19 .debug_str    000088f9  00000000  00000000  000147b5  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000050  00000000  00000000  0001cfa9  2**0
+ 20 .comment      00000050  00000000  00000000  0001d0ae  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00000288  00000000  00000000  0001cffc  2**2
+ 21 .debug_frame  00000288  00000000  00000000  0001d100  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -337,7 +337,7 @@ Infinite_Loop:
 
 08000310 <GPIO_PeriClockControl>:
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
@@ -610,7 +610,7 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 
 080004e0 <GPIO_Init>:
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
@@ -1106,7 +1106,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 
 0800084c <GPIO_ToggleOutputPin>:
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
@@ -1137,7 +1137,7 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 
 08000878 <GPIO_IRQConfig>:
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t EnorDi)
@@ -1286,7 +1286,7 @@ void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t EnorDi)
 
 08000984 <GPIO_IRQPriorityConfig>:
  * 		@note	:	none
- * 		@date	:	07.21.23
+ * 		@date	:	07/21/23
  *
  **********************************************************************/
 void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority)
@@ -1340,7 +1340,7 @@ void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority)
 
 080009d4 <GPIO_IRQHandling>:
  * 		@note	:	none
- * 		@date	:	07.19.23
+ * 		@date	:	07/19/23
  *
  **********************************************************************/
 void GPIO_IRQHandling(uint8_t PinNumber)
