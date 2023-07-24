@@ -1,5 +1,5 @@
 /*
- * stm32f407xx_gpio_driver.c
+ *  stm32f407xx_gpio_driver.c
  *
  *  Created on: Jul 10, 2023
  *  Author: EMRE PEKGUZEL
@@ -10,7 +10,6 @@
 
 /* peripheral clock setup */
 /**********************************************************************
- *
  *		@func	:	GPIO_PeriClockControl
  *		@brief	:	Enables or disables peripheral clock for given GPIO
  *					ports
@@ -22,7 +21,6 @@
  *
  * 		@note	:	none
  * 		@date	:	07/19/23
- *
  **********************************************************************/
 void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 {
@@ -108,7 +106,6 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 
 /* init and de-init */
 /**********************************************************************
- *
  *		@func	:	GPIO_Init
  *		@brief	:	Initializes given GPIO pin
  *
@@ -119,7 +116,6 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
  *
  * 		@note	:	none
  * 		@date	:	07/19/23
- *
  **********************************************************************/
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 {
@@ -205,7 +201,6 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 }
 
 /**********************************************************************
- *
  *		@func	:	GPIO_DeInit
  *		@brief	:	Deinitializes given GPIO pin
  *
@@ -216,7 +211,6 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
  *
  * 		@note	:	none
  * 		@date	:	07/19/23
- *
  **********************************************************************/
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 {
@@ -260,7 +254,6 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 
 /* data read and write */
 /**********************************************************************
- *
  *		@func	:	GPIO_ReadFromInputPin
  *		@brief	:	Reads the value of given GPIO pin
  *
@@ -271,7 +264,6 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
  *
  * 		@note	:	none
  * 		@date	:	07/19/23
- *
  **********************************************************************/
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
@@ -282,7 +274,6 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 }
 
 /**********************************************************************
- *
  *		@func	:	GPIO_ReadFromInputPort
  *		@brief	:	Reads the value of given GPIO port
  *
@@ -293,7 +284,6 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
  *
  * 		@note	:	none
  * 		@date	:	07/19/23
- *
  **********************************************************************/
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
 {
@@ -304,7 +294,6 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
 }
 
 /**********************************************************************
- *
  *		@func	:	GPIO_WriteToOutputPin
  *		@brief	:	Writes the desired value to given GPIO pin
  *
@@ -315,7 +304,6 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
  *
  * 		@note	:	none
  * 		@date	:	07/19/23
- *
  **********************************************************************/
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t EnorDi)
 {
@@ -332,7 +320,6 @@ void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Eno
 }
 
 /**********************************************************************
- *
  *		@func	:	GPIO_WriteToOutputPort
  *		@brief	:	Writes the desired value to given GPIO pin
  *
@@ -343,7 +330,6 @@ void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Eno
  *
  * 		@note	:	none
  * 		@date	:	07/19/23
- *
  **********************************************************************/
 void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value)
 {
@@ -352,7 +338,6 @@ void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value)
 }
 
 /**********************************************************************
- *
  *		@func	:	GPIO_ToggleOutputPin
  *		@brief	:	Toggles given GPIO pin
  *
@@ -363,7 +348,6 @@ void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value)
  *
  * 		@note	:	none
  * 		@date	:	07/19/23
- *
  **********************************************************************/
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
@@ -373,7 +357,6 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 
 /* IRQ configuration and ISR handling */
 /**********************************************************************
- *
  *		@func	:	GPIO_IRQConfig
  *		@brief	:	Enables or disables given IRQ
  *
@@ -384,7 +367,6 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
  *
  * 		@note	:	none
  * 		@date	:	07/19/23
- *
  **********************************************************************/
 void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t EnorDi)
 {
@@ -421,7 +403,6 @@ void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t EnorDi)
 }
 
 /**********************************************************************
- *
  *		@func	:	GPIO_IRQPriorityConfig
  *		@brief	:	Configurates the priority desired IRQ
  *
@@ -432,7 +413,6 @@ void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t EnorDi)
  *
  * 		@note	:	none
  * 		@date	:	07/21/23
- *
  **********************************************************************/
 void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority)
 {
@@ -450,7 +430,6 @@ void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority)
 }
 
 /**********************************************************************
- *
  *		@func	:	GPIO_IRQHandling
  *		@brief	:	Handler function for IRQ
  *
@@ -461,7 +440,6 @@ void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority)
  *
  * 		@note	:	none
  * 		@date	:	07/19/23
- *
  **********************************************************************/
 void GPIO_IRQHandling(uint8_t PinNumber)
 {

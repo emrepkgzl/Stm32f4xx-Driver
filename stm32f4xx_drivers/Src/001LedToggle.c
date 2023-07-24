@@ -1,8 +1,8 @@
 /*
- * LedToggle.c
+ *  LedToggle.c
  *
- *  Created on: 21 Tem 2023
- *  Author: EMRE PEKGÜZEL
+ *  Created on: Jul 21, 2023
+ *  Author: EMRE PEKGUZEL
  */
 
 #include "stm32f407xx.h"

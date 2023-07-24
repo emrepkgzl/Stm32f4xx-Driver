@@ -1,5 +1,5 @@
 /*
- * stm32f407xx.h
+ *  stm32f407xx.h
  *
  *  Created on: Jul 9, 2023
  *  Author: EMRE PEKGUZEL
@@ -18,6 +18,7 @@
  */
 
 /*******************************START: PROCESSOR SPECIFIC DETAILS*******************************/
+
 
 /* ARM Cortex Mx processor NVIC ISERx register addresses*/
 #define NVIC_ISER0				((__vo uint32_t*)0xE000E100)
@@ -289,6 +290,13 @@ typedef struct
 #define GPIOH_REG_RESET()	do{(RCC->AHB1RSTR |= (1 << 7)); (RCC->AHB1RSTR &= ~(1 << 7));} while(0);
 #define GPIOI_REG_RESET()	do{(RCC->AHB1RSTR |= (1 << 8)); (RCC->AHB1RSTR &= ~(1 << 8));} while(0);
 
+/* SPIx peripheral reset macros */
+#define SPI1_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 12)); (RCC->APB2RSTR &= ~(1 << 12));} while(0);
+#define SPI2_REG_RESET()	do{(RCC->APB1RSTR |= (1 << 14)); (RCC->APB1RSTR &= ~(1 << 14));} while(0);
+#define SPI3_REG_RESET()	do{(RCC->APB1RSTR |= (1 << 15)); (RCC->APB1RSTR &= ~(1 << 15));} while(0);
+#define SPI4_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 13)); (RCC->APB2RSTR &= ~(1 << 13));} while(0);
+
+
 /* interrupt macros */
 #define IRQ_NO_EXTI0	 6
 #define IRQ_NO_EXTI1	 7
@@ -332,6 +340,44 @@ typedef struct
 #define TRUE 	ENABLE
 #define FALSE 	!= TRUE
 
+/***************************BIT POSITION DEFINITIONS OF SPI PERIPHERAL**************************/
+
+/* bit position definitions for SPI_CR1 register */
+#define SPI_CR1_CPHA		0
+#define SPI_CR1_CPOL		1
+#define SPI_CR1_MSTR		2
+#define SPI_CR1_BR  		3
+#define SPI_CR1_SPE 		6
+#define SPI_CR1_LSBFIRST	7
+#define SPI_CR1_SSI			8
+#define SPI_CR1_SSM 		9
+#define SPI_CR1_RXONLY		10
+#define SPI_CR1_DFF 		11
+#define SPI_CR1_CRCNEXT		12
+#define SPI_CR1_CRCEN		13
+#define SPI_CR1_BIDIOE		14
+#define SPI_CR1_BIDIMODE	15
+
+/* bit position definitions for SPI_CR2 register */
+#define SPI_CR2_RXDMAEN		0
+#define SPI_CR2_TXDMAEN		1
+#define SPI_CR2_SSOE		2
+#define SPI_CR2_FRF 		4
+#define SPI_CR2_ERRIE	    5
+#define SPI_CR2_RXNEIE		6
+#define SPI_CR2_TXEIE		7
+
+/* bit position definitions for SPI status register */
+#define SPI_SR_RXNE			0
+#define SPI_SR_TXE			1
+#define SPI_SR_CHSIDE		2
+#define SPI_SR_UDR 			4
+#define SPI_SR_CRCERR	    5
+#define SPI_SR_MODF			6
+#define SPI_SR_OVR			7
+#define SPI_SR_BSY			8
+
 #include "stm32f407xx_gpio_driver.h"
+#include "stm32f407xx_spi_driver.h"
 
 #endif /* INC_STM32F407XX_H_ */

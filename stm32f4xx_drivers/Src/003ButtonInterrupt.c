@@ -1,8 +1,8 @@
 /*
- * LedButton.c
+ *  LedButton.c
  *
- *  Created on: 22 Tem 2023
- *  Author: EMRE PEKGÜZEL
+ *  Created on: Jul 22, 2023
+ *  Author: EMRE PEKGUZEL
  */
 
 #include <string.h>
