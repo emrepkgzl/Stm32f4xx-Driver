@@ -20,6 +20,7 @@ typedef struct
 	uint8_t SPI_CPOL;				/* possible cpol options from @SPICPOL	*/
 	uint8_t SPI_CPHA;				/* possible cpha options from @SPICPHA	*/
 	uint8_t SPI_SSM;				/* possible ssm options from  @SPISSM	*/
+	uint8_t SPI_SSI;				/* possible ssm options from  @SPISSI	*/
 }SPI_Config_t;
 
 /* handle structure for an SPI peripheral */
@@ -64,6 +65,10 @@ typedef struct
 #define SPI_SSM_DI  				0
 #define SPI_SSM_EN					1
 
+/* @SPISSI possible SSM options */
+#define SPI_SSI_DI  				0
+#define SPI_SSI_EN					1
+
 /*********************************APIs SUPPORTED BY THIS DRIVER*********************************/
 
 /* peripheral clock setup */
@@ -83,5 +88,6 @@ void SPI_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority);
 void SPI_IRQHandling(SPI_Handle_t *pHandle);
 
 /* other peripheral control APIs */
+void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 
 #endif /* INC_STM32F407XX_SPI_DRIVER_H_ */
