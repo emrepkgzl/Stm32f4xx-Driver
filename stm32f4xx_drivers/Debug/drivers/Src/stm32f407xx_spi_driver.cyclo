@@ -1,9 +1,10 @@
 stm32f407xx_spi_driver.c:25:6:SPI_PeriClockControl	10
 stm32f407xx_spi_driver.c:80:6:SPI_Init	4
-stm32f407xx_spi_driver.c:137:6:SPI_DeInit	5
-stm32f407xx_spi_driver.c:170:6:SPI_SendData	4
-stm32f407xx_spi_driver.c:206:6:SPI_ReceiveData	1
-stm32f407xx_spi_driver.c:224:6:SPI_IRQConfig	1
-stm32f407xx_spi_driver.c:241:6:SPI_IRQPriorityConfig	1
-stm32f407xx_spi_driver.c:258:6:SPI_IRQHandling	1
-stm32f407xx_spi_driver.c:275:6:SPI_PeripheralControl	2
+stm32f407xx_spi_driver.c:144:6:SPI_DeInit	5
+stm32f407xx_spi_driver.c:177:6:SPI_SendData	4
+stm32f407xx_spi_driver.c:213:6:SPI_ReceiveData	4
+stm32f407xx_spi_driver.c:250:6:SPI_IRQConfig	1
+stm32f407xx_spi_driver.c:267:6:SPI_IRQPriorityConfig	1
+stm32f407xx_spi_driver.c:284:6:SPI_IRQHandling	1
+stm32f407xx_spi_driver.c:301:6:SPI_PeripheralControl	2
+stm32f407xx_spi_driver.c:325:9:SPI_GetFlagStatus	2

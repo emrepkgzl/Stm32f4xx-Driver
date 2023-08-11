@@ -120,6 +120,13 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)
 	temp |= (pSPIHandle->SPI_Config.SPI_SSI << SPI_CR1_SSI);
 
 	pSPIHandle->pSPIx->CR1 = temp;
+
+	temp = 0;
+
+	temp |= (pSPIHandle->SPI_Config.SPI_SSOE << SPI_CR2_SSOE);
+
+	pSPIHandle->pSPIx->CR2 = temp;
+
 }
 
 /**********************************************************************
@@ -178,8 +185,8 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Len)
 		{
 			/* 16 bit frame format */
 			pSPIx->DR = *(uint16_t*)pTxBuffer;
-			Len--;
 			(uint16_t*)pTxBuffer++;
+			Len--;
 		}
 		else
 		{
@@ -205,7 +212,26 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Len)
  **********************************************************************/
 void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len)
 {
+	while(Len > 0)
+	{
+		/* wait(block) untill rx buffer become loaded */
+		while(!(pSPIx->SR & (1 << SPI_SR_RXNE)));
 
+		if(pSPIx->CR1 & (1 << SPI_CR1_DFF))
+		{
+			/* 16 bit frame format */
+			*(uint16_t*)pRxBuffer = pSPIx->DR;
+			(uint16_t*)pRxBuffer++;
+			Len--;
+		}
+		else
+		{
+			/* 8 bit frame format */
+			*pRxBuffer = pSPIx->DR;
+			pRxBuffer++;
+		}
+		Len--;
+	}
 }
 
 /* IRQ configuration and ISR handling */
@@ -282,6 +308,27 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
 	{
 		pSPIx->CR1 &= ~(1 << SPI_CR1_SPE);
 	}
+}
+
+/**********************************************************************
+ *	@func	:	SPI_GetFlagStatus
+ *	@brief	:	This function returns the status of the given SPI flag
+ *
+ * 	@param	:	Base address of the SPI peripheral
+ * 	@param 	:	Bit position of the desired register
+ * 	@param 	:	none
+ *	@return :	Boolean
+ *
+ * 	@note	:	none
+ * 	@date	:	08/11/23
+ **********************************************************************/
+uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName)
+{
+	if(pSPIx->CR2 & 1 << FlagName)
+	{
+		return SET;
+	}
+	return RESET;
 }
 
 

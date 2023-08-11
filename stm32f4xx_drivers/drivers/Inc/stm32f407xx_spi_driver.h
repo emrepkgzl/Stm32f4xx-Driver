@@ -21,6 +21,8 @@ typedef struct
 	uint8_t SPI_CPHA;				/* possible cpha options from @SPICPHA	*/
 	uint8_t SPI_SSM;				/* possible ssm options from  @SPISSM	*/
 	uint8_t SPI_SSI;				/* possible ssm options from  @SPISSI	*/
+	uint8_t SPI_SSOE;				/* possible ssm options from  @SPISSOE	*/
+
 }SPI_Config_t;
 
 /* handle structure for an SPI peripheral */
@@ -69,6 +71,9 @@ typedef struct
 #define SPI_SSI_DI  				0
 #define SPI_SSI_EN					1
 
+/* @SPISSI possible SSOE options */
+#define SPI_SSOE_DI  				0
+#define SPI_SSOE_EN					1
 /*********************************APIs SUPPORTED BY THIS DRIVER*********************************/
 
 /* peripheral clock setup */

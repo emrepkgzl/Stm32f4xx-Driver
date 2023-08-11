@@ -1,0 +1,7 @@
+../Src/008SpiCmdHandling.c:45:6:SPI2_GPIOInits	24	static
+../Src/008SpiCmdHandling.c:75:6:SPI2_Inits	24	static
+../Src/008SpiCmdHandling.c:94:6:ItButton_GPIOInits	24	static
+../Src/008SpiCmdHandling.c:113:9:VerifyResponse	16	static
+../Src/008SpiCmdHandling.c:123:6:delay	16	static
+../Src/008SpiCmdHandling.c:128:5:main	8	static
+../Src/008SpiCmdHandling.c:146:6:EXTI0_IRQHandler	16	static
